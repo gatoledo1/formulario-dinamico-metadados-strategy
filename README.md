@@ -4,6 +4,8 @@ Uma arquitetura para construção de formulários dinâmicos em React baseada em
 
 ---
 
+## [Documentação sobre as Skills para IA](https://github.com/gatoledo1/formulario-dinamico-metadados-strategy/blob/main/Readme-Skills.md)
+
 ## Conceito Central
 
 Em vez de criar campos diretamente no JSX, você descreve cada campo como um objeto JavaScript. O `DynamicForm` lê esse array de objetos e decide o que renderizar. Isso significa que adicionar, remover ou condicionar campos é uma alteração de dados, não de estrutura visual.
