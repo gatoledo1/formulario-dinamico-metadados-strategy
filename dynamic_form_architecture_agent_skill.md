@@ -272,24 +272,6 @@ Pergunta:
 
 ---
 
-# Tipos de Campo Conhecidos
-
-```text
-section
-inputTextOrNumber
-inputTextWithButtonInside
-autocomplete
-AutocompleteUsarInfiniteScroll
-select
-datepicker
-radioGroup
-switch
-textArea
-fileUpload
-```
-
----
-
 # Estratégias de Exibição
 
 ## Condition
@@ -298,16 +280,10 @@ fileUpload
 condition: valor === true
 ```
 
-## País homologado
-
-```js
-paisHomologado: "Brasil"
-```
-
 ## Combinação
 
 ```js
-condition && paisHomologado
+condition
 ```
 
 ---
