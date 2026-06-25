@@ -104,7 +104,7 @@ O metadado é um **array de objetos**. Cada objeto descreve um campo.
 
 - Deve ser legível como configuração.
 - Deve expor `type`, `name`, `label`, `value`, `onChange` e propriedades de layout.
-- Pode incluir `validate`, `condition`, `paisHomologado`, `disabled`, `error`, `helperText`, `inputProps`, `options`, `fetchFunction`, `getUrl`, `iconActionBtn`, entre outros.
+- Pode incluir `validate`, `condition`, `disabled`, `error`, `helperText`, `inputProps`, `options`, `fetchFunction`, `getUrl`, `iconActionBtn`, entre outros.
 
 ### Exemplo
 
@@ -143,7 +143,7 @@ A decisão de qual componente exibir acontece com base em `field.type`.
 ### Responsabilidade do renderer
 
 - renderizar campos;
-- respeitar `condition` e `paisHomologado`;
+- respeitar `condition`;
 - propagar as props recebidas;
 - manter a camada visual simples e sem regra de negócio.
 
@@ -152,7 +152,7 @@ A decisão de qual componente exibir acontece com base em `field.type`.
 ```jsx
 const DynamicForm = ({ dataFields }) => {
   const renderFormField = (field) => {
-    const shouldDisplayField = true; // aplicar a lógica de condition + paisHomologado
+    const shouldDisplayField = true; // aplicar a lógica de condition
 
     switch (field.type) {
       case 'inputTextOrNumber':
@@ -274,28 +274,11 @@ Cada campo é um objeto plano.
 | `error` | `boolean` | Estado visual de erro |
 | `helperText` | `string` | Texto auxiliar / mensagem de erro |
 | `condition` | `boolean` | Controla exibição condicional |
-| `paisHomologado` | `string` | Filtra por país habilitado |
 | `xs/sm/md/lg` | `number` | Layout responsivo no Grid |
 | `disabled` | `boolean` | Desabilita o campo |
 | `inputProps` | `object` | Atributos nativos do input |
 
 ---
-
-## Tipos de campo suportados
-
-O renderer pode suportar os seguintes `type`:
-
-- `section`
-- `inputTextOrNumber`
-- `inputTextWithButtonInside`
-- `autocomplete`
-- `AutocompleteUsarInfiniteScroll`
-- `select`
-- `datepicker`
-- `radioGroup`
-- `switch`
-- `textArea`
-- `fileUpload`
 
 ### Regra para agentes
 
@@ -320,18 +303,6 @@ Expressão booleana avaliada no runtime.
   type: 'inputTextOrNumber',
   name: 'pessoa.pessoaFisica.passaPorte',
   condition: formik.values.pessoa?.nacionalidade?.nome !== 'BRASIL',
-}
-```
-
-### `paisHomologado`
-
-Filtra o campo com base no país ativo do sistema.
-
-```js
-{
-  type: 'inputTextOrNumber',
-  name: 'pessoa.nif',
-  paisHomologado: 'Portugal',
 }
 ```
 
