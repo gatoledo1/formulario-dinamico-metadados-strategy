@@ -15,6 +15,10 @@ tags:
   - strategy-pattern
 ---
 
+- _Antes de executar qualquer ação, carregue e consulte a skill de conhecimento (knowledge skill) `dynamic_form_architecture_skill.md`, se houver conflito de regras, o knowledge skill tem prioridade._
+- _Sempre consulte a skill de conhecimento para decisões técnicas e regras_
+
+
 # Dynamic Form Architecture
 
 ## Missão
