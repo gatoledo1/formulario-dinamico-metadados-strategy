@@ -13,6 +13,8 @@ inputsMetadado.js   →   DynamicForm (index.js)   →   UI renderizada
    (O quê)                   (Como)                    (Resultado)
 ```
 
+<img width="1394" height="1056" alt="image" src="https://github.com/user-attachments/assets/cc127448-15c2-4dc1-8e04-0df6107ff871" />
+
 ---
 
 ## Estrutura de Arquivos
