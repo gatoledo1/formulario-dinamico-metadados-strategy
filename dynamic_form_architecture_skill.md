@@ -1,6 +1,6 @@
 ---
 name: Dynamic Form Architecture Skill
-description: Skill para entender, projetar e manter formulários dinâmicos em React com arquitetura em três camadas: Metadado, Renderer e Orquestrador.
+description: Skill para entender, projetar e manter formulários dinâmicos em React com arquitetura em três camadas sendo, Metadado, Renderer e Orquestrador.
 language: pt-BR
 audience: agentic-ai
 version: 1.0
