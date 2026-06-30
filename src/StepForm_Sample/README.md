@@ -1,6 +1,6 @@
 # Extensão: Formulários com Steps (Wizard)
 
-Este documento complementa o [README principal](./README.md) da arquitetura de formulários dinâmicos. Aqui é descrita uma extensão que permite dividir um formulário grande em **etapas (steps)**, sem alterar nada da camada `DynamicForm` (Renderer). A mudança acontece inteiramente na forma como o **metadado** é estruturado e como o **orquestrador** consome esse metadado.
+Este documento complementa o [README principal](../../README.md) da arquitetura de formulários dinâmicos. Aqui é descrita uma extensão que permite dividir um formulário grande em **etapas (steps)**, sem alterar nada da camada `DynamicForm` (Renderer). A mudança acontece inteiramente na forma como o **metadado** é estruturado e como o **orquestrador** consome esse metadado.
 
 ---
 
@@ -83,7 +83,7 @@ O `Stepper` é só uma representação visual — ele não controla a navegaçã
 
 ## Validação Escopada por Etapa
 
-Esse é o ponto mais importante da extensão. Diferente da versão flat (que valida **todos** os campos do formulário de uma vez), aqui a validação do Formik filtra **apenas os campos da etapa ativa**:
+Esse é o ponto mais importante da extensão. Diferente da versão flat (que valida **todos** os campos do formulário de uma vez), aqui a validação (com o Formik como exemplo) filtra **apenas os campos da etapa ativa**:
 
 ```js
 const formik = useFormik({
@@ -213,27 +213,6 @@ Como `handleNext` e o submit final dependem de `setTimeout` em cascata, existe r
 
 ---
 
-## Campos com Dependência Entre Si (`dependencyValueToUpdate`)
-
-Na versão com steps aparece um padrão novo para autocompletes que dependem do valor de outro campo (ex: cidade depende da UF selecionada):
-
-```js
-{
-  type: 'infiniteScrollAutocomplete',
-  name: 'cidadeResidencia',
-  getUrl: (term) => {
-    const idUf = formik.values?.cidadeResidencia?.unidadeFederativa?.id;
-    return `/cidade/findByUnidadeFederativaAutocomplete?term=${term}&idUf=${idUf}`;
-  },
-  // Quando a UF mudar, o componente sabe que precisa resetar/recarregar suas opções
-  dependencyValueToUpdate: formik.values?.cidadeResidencia?.unidadeFederativa,
-}
-```
-
-`dependencyValueToUpdate` é repassado ao componente de autocomplete (geralmente usado como dependência de um `useEffect` interno) para que ele dispare uma nova busca sempre que o valor "pai" mudar — sem precisar acoplar essa lógica ao `DynamicForm`.
-
----
-
 ## Resetando Campos Dependentes (Cascata)
 
 Quando o usuário muda um campo "pai" (ex: nacionalidade), pode ser necessário limpar campos "filhos" que perderam o sentido. O padrão usado é o `formik.setValues` com múltiplos campos de uma vez, dentro do próprio `onChange`/`iconActionBtn` do campo disparador:
@@ -338,4 +317,4 @@ Navegação:
 | Submit real | Direto no clique de "Salvar" | Só executa quando `isLastStep === true` |
 | `DynamicForm` (Renderer) | Sem alteração | Sem alteração — continua recebendo um array simples de campos |
 
-A principal lição arquitetural aqui é que **a complexidade de "etapas" nunca vaza para o Renderer**. Ele continua sendo um componente burro que recebe `dataFields` e desenha. Toda a orquestração de navegação, validação escopada e submit condicional vive exclusivamente no componente de página (`FormSteps`), reaproveitando 100% do `DynamicForm` já existente.
+A principal lição arquitetural aqui é que **a complexidade de "etapas" nunca vaza para o Renderer**. Ele continua sendo um componente que recebe `dataFields` e desenha. Toda a orquestração de navegação, validação escopada e submit condicional vive exclusivamente no componente de página (`FormSteps`), reaproveitando 100% do `DynamicForm` já existente.
