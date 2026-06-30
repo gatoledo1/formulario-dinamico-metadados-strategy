@@ -366,6 +366,21 @@ Para autocompletes que dependem do valor de outro campo (ex: cidade depende da U
 
 `dependencyValueToUpdate` é repassado ao componente de autocomplete (geralmente usado como dependência de um `useEffect` interno) para que ele dispare uma nova busca sempre que o valor "pai" mudar — sem precisar acoplar essa lógica ao `DynamicForm`.
 
+Por exemplo, o componente `InfiniteScrollAutocomplete.js` utiliza essa verificação de dependência:
+
+```js
+useEffect(() => {
+ (async () => {
+   try {
+     const response = await initialOptions?.(term) || []
+     setFetchOptions(response)
+   } catch (error) {
+     console.error("error", error)
+   }
+ })()
+}, [term, dependencyValueToUpdate])
+```
+
 ---
 
 ## Requisições Desacopladas do Componente
