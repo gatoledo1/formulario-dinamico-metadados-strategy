@@ -344,6 +344,28 @@ export const getNestedFormikValue = (obj, path) => {
 
 A validação é **automaticamente pulada** para campos com `condition: false`, porque o campo está oculto e não faz sentido validá-lo.
 
+
+---
+
+## Campos com Dependência entre Si (`dependencyValueToUpdate`)
+
+Para autocompletes que dependem do valor de outro campo (ex: cidade depende da UF selecionada):
+
+```js
+{
+  type: 'infiniteScrollAutocomplete',
+  name: 'cidadeResidencia',
+  getUrl: (term) => {
+    const idUf = formik.values?.cidadeResidencia?.unidadeFederativa?.id;
+    return `/cidade/findByUnidadeFederativaAutocomplete?term=${term}&idUf=${idUf}`;
+  },
+  // Quando a UF mudar, o componente sabe que precisa resetar/recarregar suas opções
+  dependencyValueToUpdate: formik.values?.cidadeResidencia?.unidadeFederativa,
+}
+```
+
+`dependencyValueToUpdate` é repassado ao componente de autocomplete (geralmente usado como dependência de um `useEffect` interno) para que ele dispare uma nova busca sempre que o valor "pai" mudar — sem precisar acoplar essa lógica ao `DynamicForm`.
+
 ---
 
 ## Requisições Desacopladas do Componente
