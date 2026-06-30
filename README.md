@@ -1,4 +1,4 @@
-# Dynamic Form Architecture
+# Dynamic Form Architecture (Metadata Driven UI)
 
 Uma arquitetura para construção de formulários dinâmicos em React baseada em três camadas: **Metadado**, **Renderer (Factory)** e **Orquestrador (Strategy)**. O objetivo é centralizar toda a configuração do formulário — campos, validações, comportamentos, requisições e regras de exibição — em um único arquivo de metadado, mantendo o componente visual completamente desacoplado.
 
