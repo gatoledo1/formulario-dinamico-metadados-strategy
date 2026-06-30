@@ -18,7 +18,6 @@ import {
 import DynamicForm from '../form/DynamicForm';
 import { inputsMetadado } from './inputsMetadado';
 import { getNestedFormikValue, validateField } from '../form/DynamicForm/validatorFieldsValue';
-import useConfiguracaoService from '../GridList/service/ConfiguracaoService';
 import { get } from '../HttpUtils/FetchApi';
 
 const PessoaForm = ({ closeModal, inputValue = undefined }) => {
@@ -61,7 +60,6 @@ const PessoaForm = ({ closeModal, inputValue = undefined }) => {
 
   // Especifico para este componente
   const [tab, setTab] = useState(0);
-  const configuracaoService = useConfiguracaoService()
 
   const handleCloseSnack = (event, reason) => {
     if (reason === 'clickaway') {
@@ -69,28 +67,6 @@ const PessoaForm = ({ closeModal, inputValue = undefined }) => {
     }
     setStateSnack({ ...stateSnack, open: false })
 }
-
-  useEffect(() => {
-    configuracaoService.getConfiguracaoByNome('IDIOMA_SISTEMA')
-      .then(res => {
-        const idioma = res.slice(0, 2)
-        formik.setFieldValue("pessoa.idiomaSistema", idioma)
-    })
-    
-    //Get para iniciar o input pais e nacionalidade como o pais do sistema
-    get(`/tecnico/pais/findAutoCompleteNacionalidadeComCodigoIbgeEMercosul?term=${paisHomologado?.nome}`).then((res) => {
-      formik.setFieldValue("endereco.cidade.unidadeFederativa.pais", {
-        codigoIbge: res[0]?.codigoIbge,
-        id: res[0]?.value,
-        nome: res[0]?.adicional
-      })
-      formik.setFieldValue("pessoa.nacionalidade", {
-        id: res[0]?.value,
-        nacionalidade: res[0]?.label
-      })
-    })
-
-  }, [])
 
   const arrayFormData = inputsMetadado(formik, setStateSnack);
   const arrayFormData2 = [];
@@ -127,7 +103,7 @@ const PessoaForm = ({ closeModal, inputValue = undefined }) => {
       <Box sx={{ borderBottom: 1, borderColor: 'divider' }}>
         <Tabs value={tab} onChange={handleChange} aria-label="tabs" centered>
           <Tab label={jQuery.i18n.prop('label.fisica')} />
-          {/* <Tab label={jQuery.i18n.prop('label.juridica')} /> */}
+          <Tab label={jQuery.i18n.prop('label.juridica')} />
         </Tabs>
       </Box>
 
