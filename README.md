@@ -2,9 +2,12 @@
 
 Uma arquitetura para construção de formulários dinâmicos em React baseada em três camadas: **Metadado**, **Renderer (Factory)** e **Orquestrador (Strategy)**. O objetivo é centralizar toda a configuração do formulário — campos, validações, comportamentos, requisições e regras de exibição — em um único arquivo de metadado, mantendo o componente visual completamente desacoplado.
 
+### [Documentação para formulário com etapas](https://github.com/gatoledo1/formulario-dinamico-metadados-strategy/blob/main/README-form-steps.md)
+
+### [Documentação sobre as Skills para IA](https://github.com/gatoledo1/formulario-dinamico-metadados-strategy/blob/main/Readme-Skills.md)
+
 ---
 
-## [Documentação sobre as Skills para IA](https://github.com/gatoledo1/formulario-dinamico-metadados-strategy/blob/main/Readme-Skills.md)
 
 ## Conceito Central
 
