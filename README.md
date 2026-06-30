@@ -4,7 +4,7 @@ Uma arquitetura para construção de formulários dinâmicos em React baseada em
 
 ### [Documentação para formulário com etapas](https://github.com/gatoledo1/formulario-dinamico-metadados-strategy/blob/main/README-form-steps.md)
 
-### [Documentação sobre as Skills para IA](https://github.com/gatoledo1/formulario-dinamico-metadados-strategy/blob/main/Readme-Skills.md)
+### [Documentação sobre as Skills para IA](https://github.com/gatoledo1/formulario-dinamico-metadados-strategy/blob/main/.skills/DynamicForm/INDEX.md)
 
 ---
 
