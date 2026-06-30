@@ -1,10 +1,13 @@
-# Dynamic Form Architecture
+# Dynamic Form Architecture (Metadata Driven UI)
 
 Uma arquitetura para construção de formulários dinâmicos em React baseada em três camadas: **Metadado**, **Renderer (Factory)** e **Orquestrador (Strategy)**. O objetivo é centralizar toda a configuração do formulário — campos, validações, comportamentos, requisições e regras de exibição — em um único arquivo de metadado, mantendo o componente visual completamente desacoplado.
 
+### [Documentação para formulário com etapas](https://github.com/gatoledo1/formulario-dinamico-metadados-strategy/blob/main/README-form-steps.md)
+
+### [Documentação sobre as Skills para IA](https://github.com/gatoledo1/formulario-dinamico-metadados-strategy/blob/main/Readme-Skills.md)
+
 ---
 
-## [Documentação sobre as Skills para IA](https://github.com/gatoledo1/formulario-dinamico-metadados-strategy/blob/main/Readme-Skills.md)
 
 ## Conceito Central
 
@@ -340,6 +343,43 @@ export const getNestedFormikValue = (obj, path) => {
 ```
 
 A validação é **automaticamente pulada** para campos com `condition: false`, porque o campo está oculto e não faz sentido validá-lo.
+
+
+---
+
+## Campos com Dependência entre Si (`dependencyValueToUpdate`)
+
+Para autocompletes que dependem do valor de outro campo (ex: cidade depende da UF selecionada):
+
+```js
+{
+  type: 'infiniteScrollAutocomplete',
+  name: 'cidadeResidencia',
+  getUrl: (term) => {
+    const idUf = formik.values?.cidadeResidencia?.unidadeFederativa?.id;
+    return `/cidade/findByUnidadeFederativaAutocomplete?term=${term}&idUf=${idUf}`;
+  },
+  // Quando a UF mudar, o componente sabe que precisa resetar/recarregar suas opções
+  dependencyValueToUpdate: formik.values?.cidadeResidencia?.unidadeFederativa,
+}
+```
+
+`dependencyValueToUpdate` é repassado ao componente de autocomplete (geralmente usado como dependência de um `useEffect` interno) para que ele dispare uma nova busca sempre que o valor "pai" mudar — sem precisar acoplar essa lógica ao `DynamicForm`.
+
+Por exemplo, o componente `InfiniteScrollAutocomplete.js` utiliza essa verificação de dependência:
+
+```js
+useEffect(() => {
+ (async () => {
+   try {
+     const response = await initialOptions?.(term) || []
+     setFetchOptions(response)
+   } catch (error) {
+     console.error("error", error)
+   }
+ })()
+}, [term, dependencyValueToUpdate])
+```
 
 ---
 
